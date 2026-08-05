@@ -4,6 +4,13 @@ A production-grade, modular AI Voice Agent System addressing all 4 Core Question
 
 ---
 
+## 🌐 Live Deployed Application
+
+> 🔗 **Live Website URL**: **[https://darwin-ai-voice-agent.onrender.com](https://darwin-ai-voice-agent.onrender.com)**  
+> ⚡ *Hosted live on Render.com with FastAPI, WebSockets & Three.js 3D Background.*
+
+---
+
 ## 📹 Video Demonstration & Walkthrough
 
 > **[INSERT YOUR LOOM / YOUTUBE VIDEO LINK HERE]**

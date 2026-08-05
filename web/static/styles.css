@@ -785,6 +785,77 @@ body.dark-theme {
 .stage-name { font-weight: 700; font-size: 14px; }
 .sla-target { font-size: 11px; color: var(--text-muted); }
 
+/* ==========================================================================
+   RESPONSIVE MEDIA QUERIES (TABLETS & MOBILE)
+   ========================================================================== */
+
+@media (max-width: 1100px) {
+    .grid-2col {
+        grid-template-columns: 1fr;
+    }
+
+    .chat-container {
+        height: 500px;
+    }
+
+    .nudge-feed {
+        height: 380px;
+    }
+}
+
+@media (max-width: 850px) {
+    .nav-tabs {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .app-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .header-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
+@media (max-width: 600px) {
+    .app-layout {
+        padding: 12px;
+        gap: 14px;
+    }
+
+    .nav-tabs {
+        grid-template-columns: 1fr;
+    }
+
+    .tab-btn {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .calc-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .latency-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .brand-text h1 {
+        font-size: 18px;
+    }
+
+    .panel-header h2 {
+        font-size: 16px;
+    }
+
+    .glass-panel {
+        padding: 16px;
+    }
+}
+
 .metric-row {
     display: flex;
     justify-content: space-between;
