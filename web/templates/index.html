@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Voice Agent Assessment Control Center</title>
+    <meta name="description" content="Production-Grade AI Voice Agent System with Grounded RAG, Knowledge Base, Multilingual Bots, and Real-Time Nudges">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Three.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- CSS Styles -->
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body class="dark-theme">
+    <!-- Three.js Ambient Particle Canvas Background -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- App Container -->
+    <div class="app-layout">
+        <!-- Header Bar -->
+        <header class="app-header">
+            <div class="brand">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-brain"></i>
+                </div>
+                <div class="brand-text">
+                    <h1>DARWIN <span class="accent-text">VOICE AGENT</span></h1>
+                    <p class="subtitle">AI Engineer Assessment Control Center</p>
+                </div>
+            </div>
+            
+            <div class="header-actions">
+                <div class="status-badge pulse-green">
+                    <span class="indicator"></span>
+                    <span class="status-text">SYSTEM ONLINE</span>
+                </div>
+                <div class="system-time" id="live-clock">--:--:--</div>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="nav-tabs">
+            <button class="tab-btn active" data-tab="tab-q1">
+                <i class="fa-solid fa-headset"></i>
+                <span>Q1 Voice Agent</span>
+            </button>
+            <button class="tab-btn" data-tab="tab-q2">
+                <i class="fa-solid fa-database"></i>
+                <span>Q2 Knowledge Base</span>
+            </button>
+            <button class="tab-btn" data-tab="tab-q3">
+                <i class="fa-solid fa-language"></i>
+                <span>Q3 Multilingual Bots</span>
+            </button>
+            <button class="tab-btn" data-tab="tab-q4">
+                <i class="fa-solid fa-bolt"></i>
+                <span>Q4 Live Nudges & SLA</span>
+            </button>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="content-area">
+            <!-- TAB 1: Q1 VOICE AGENT SIMULATOR -->
+            <section id="tab-q1" class="tab-content active">
+                <div class="grid-2col">
+                    <!-- Chat Interactive Window -->
+                    <div class="glass-panel chat-container">
+                        <div class="panel-header">
+                            <h2><i class="fa-solid fa-comments"></i> Live Voice Agent Call Simulator</h2>
+                            <button id="q1-new-call-btn" class="btn btn-secondary btn-sm">
+                                <i class="fa-solid fa-rotate-right"></i> New Call
+                            </button>
+                        </div>
+                        <div id="q1-chat-log" class="chat-log">
+                            <div class="message agent-msg">
+                                <div class="avatar"><i class="fa-solid fa-robot"></i></div>
+                                <div class="msg-bubble">
+                                    Click "New Call" or type a message below to start the conversation simulation.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-input-bar">
+                            <input type="text" id="q1-user-input" placeholder="Type a message (e.g. 'I'm interested in health insurance', 'How much is the premium?')..." autocomplete="off">
+                            <button id="q1-send-btn" class="btn btn-primary">
+                                <i class="fa-solid fa-paper-plane"></i> Send
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- State & Grounding Inspector -->
+                    <div class="glass-panel inspector-container">
+                        <div class="panel-header">
+                            <h2><i class="fa-solid fa-diagram-project"></i> State Machine & Grounding</h2>
+                        </div>
+                        <div class="state-card">
+                            <span class="label">Current Call State</span>
+                            <div id="q1-state-badge" class="state-badge">GREETING</div>
+                        </div>
+                        <div class="state-card">
+                            <span class="label">Qualification Outcome</span>
+                            <div id="q1-outcome-badge" class="outcome-badge pending">PENDING</div>
+                        </div>
+
+                        <div class="section-title"><i class="fa-solid fa-quote-left"></i> Grounded Citations</div>
+                        <div id="q1-citations-list" class="citations-box">
+                            <span class="text-muted">No citations requested yet for current turn.</span>
+                        </div>
+
+                        <div class="section-title"><i class="fa-solid fa-id-card"></i> Lead Profile Data</div>
+                        <pre id="q1-lead-summary" class="profile-pre">Lead profile will update automatically as customer provides details...</pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 2: Q2 KNOWLEDGE BASE INSPECTOR -->
+            <section id="tab-q2" class="tab-content">
+                <div class="grid-2col">
+                    <!-- Hybrid Search Tester -->
+                    <div class="glass-panel">
+                        <div class="panel-header">
+                            <h2><i class="fa-solid fa-magnifying-glass"></i> Hybrid BM25 + Dense RRF Search</h2>
+                        </div>
+                        <div class="search-bar-box">
+                            <input type="text" id="q2-search-input" placeholder="Search insurance or loan rules (e.g. 'waiting period', 'financial ratio requirements')...">
+                            <button id="q2-search-btn" class="btn btn-primary">
+                                <i class="fa-solid fa-search"></i> Search
+                            </button>
+                        </div>
+
+                        <div class="quick-chips">
+                            <span>Try:</span>
+                            <button class="chip-btn" data-query="What is the waiting period for health insurance?">Waiting Period</button>
+                            <button class="chip-btn" data-query="Financial ratio requirements for business loan">Loan Ratios</button>
+                            <button class="chip-btn" data-query="How do I file a claim for hospitalization?">Filing Claim</button>
+                            <button class="chip-btn" data-query="Too expensive premium objection">Objections</button>
+                        </div>
+
+                        <div id="q2-results-container" class="results-list">
+                            <div class="text-muted placeholder-text">Enter a query above to see ranked hybrid retrieval results with BM25, Dense TF-IDF, and RRF scores.</div>
+                        </div>
+                    </div>
+
+                    <!-- PII Cleaner & Data Ingestion Inspector -->
+                    <div class="glass-panel">
+                        <div class="panel-header">
+                            <h2><i class="fa-solid fa-user-shield"></i> PII Masker & Cleaner Inspector</h2>
+                        </div>
+                        <div class="form-group">
+                            <label for="q2-clean-input">Raw Input Document Text (with PII & Headers)</label>
+                            <textarea id="q2-clean-input" rows="5" class="code-input">--- CONFIDENTIAL HEADER ---
+John Doe (SSN: 123-45-6789, Email: john.doe@email.com, Phone: +63-917-555-0199) requested a loan of PHP 1,500,000 for business expansion.
+TIN: 987-654-321-000.
+--- CONFIDENTIAL FOOTER PAGE 1 OF 3 ---</textarea>
+                        </div>
+                        <button id="q2-clean-btn" class="btn btn-secondary">
+                            <i class="fa-solid fa-filter"></i> Run Cleaner & PII Masker
+                        </button>
+
+                        <div class="clean-metrics" id="q2-clean-metrics" style="display: none;">
+                            <div class="metric-badge"><span class="val" id="q2-pii-count">0</span> PII Masked</div>
+                            <div class="metric-badge"><span class="val" id="q2-header-status">No</span> Headers Stripped</div>
+                        </div>
+
+                        <div class="form-group margin-top">
+                            <label>Cleaned & Masked Retrieval Output</label>
+                            <pre id="q2-clean-output" class="code-output">Click "Run Cleaner" above to test PII masking...</pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 3: Q3 MULTILINGUAL BOTS -->
+            <section id="tab-q3" class="tab-content">
+                <div class="grid-2col">
+                    <!-- Bot Simulator -->
+                    <div class="glass-panel">
+                        <div class="panel-header">
+                            <h2><i class="fa-solid fa-earth-asia"></i> Multilingual Native Voice Bots</h2>
+                            <div class="bot-selector">
+                                <button id="ph-bot-btn" class="sub-tab-btn active"> Philippines (Taglish)</button>
+                                <button id="id-bot-btn" class="sub-tab-btn"> Indonesia (Bahasa)</button>
+                            </div>
+                        </div>
+
+                        <div id="q3-chat-log" class="chat-log">
+                            <div class="message agent-msg">
+                                <div class="avatar"><i class="fa-solid fa-robot"></i></div>
+                                <div class="msg-bubble" id="q3-welcome-msg">
+                                    Magandang araw po! Salamat sa inyong pagtawag. Nandito po ako para tulungan kayo sa aming life insurance at health insurance. Paano ko po kayo matutulungan ngayon?
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="chat-input-bar">
+                            <input type="text" id="q3-user-input" placeholder="Say something (e.g. 'Puwede ko ba malaman ang hulog?', 'Bunganya berapa?')...">
+                            <button id="q3-send-btn" class="btn btn-primary">
+                                <i class="fa-solid fa-paper-plane"></i> Send
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Quality Breakdown & Loan Calculator -->
+                    <div class="glass-panel">
+                        <div class="panel-header">
+                            <h2><i class="fa-solid fa-chart-pie"></i> Quality Score & Financial Tools</h2>
+                        </div>
+
+                        <div class="quality-card">
+                            <span class="label">Code-Switching Quality Rating</span>
+                            <div class="quality-score-row">
+                                <div id="q3-quality-rating" class="quality-badge excellent">EXCELLENT</div>
+                                <div id="q3-quality-score" class="score-num">1.00</div>
+                            </div>
+                            <div class="breakdown-list">
+                                <div><i class="fa-solid fa-check text-green"></i> Local Terms Detected: <strong id="q3-local-terms">-</strong></div>
+                                <div><i class="fa-solid fa-check text-green"></i> Respect Markers Found: <strong id="q3-respect-markers">-</strong></div>
+                                <div class="note-text" id="q3-quality-note">Ready for conversation input.</div>
+                            </div>
+                        </div>
+
+                        <!-- Loan Calculator Section -->
+                        <div class="calc-section">
+                            <div class="section-title"><i class="fa-solid fa-calculator"></i> Indonesian Simulasi Kredit (Loan Calculator)</div>
+                            <div class="calc-grid">
+                                <div class="input-group">
+                                    <label>Pokok Pinjaman (IDR)</label>
+                                    <input type="number" id="calc-principal" value="100000000" step="10000000">
+                                </div>
+                                <div class="input-group">
+                                    <label>Suku Bunga (% p.a.)</label>
+                                    <input type="number" id="calc-rate" value="15.0" step="0.5">
+                                </div>
+                                <div class="input-group">
+                                    <label>Tenor (Bulan)</label>
+                                    <input type="number" id="calc-tenor" value="24" step="6">
+                                </div>
+                            </div>
+                            <button id="calc-run-btn" class="btn btn-secondary btn-block">
+                                <i class="fa-solid fa-calculator"></i> Calculate Cicilan
+                            </button>
+
+                            <div id="calc-results" class="calc-output-box" style="display: none;">
+                                <div class="calc-row"><span>Cicilan per Bulan:</span><strong class="highlight-green" id="calc-cicilan">Rp 0</strong></div>
+                                <div class="calc-row"><span>Total Pembayaran:</span><span id="calc-total">Rp 0</span></div>
+                                <div class="calc-row"><span>Total Bunga:</span><span id="calc-bunga">Rp 0</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 4: Q4 LIVE NUDGES & LATENCY TELEMETRY -->
+            <section id="tab-q4" class="tab-content">
+                <div class="grid-2col">
+                    <!-- Streaming Call & Real-time Nudge Feed -->
+                    <div class="glass-panel">
+                        <div class="panel-header">
+                            <h2><i class="fa-solid fa-tower-broadcast"></i> Live Audio Stream & Nudge Feed</h2>
+                            <button id="ws-start-btn" class="btn btn-success">
+                                <i class="fa-solid fa-play"></i> Start Stream Simulation
+                            </button>
+                        </div>
+
+                        <div id="q4-nudge-feed" class="nudge-feed">
+                            <div class="placeholder-text text-muted">Click "Start Stream Simulation" to connect WebSocket and stream real-time call audio chunks & nudges.</div>
+                        </div>
+                    </div>
+
+                    <!-- Latency Telemetry SLA Dashboard -->
+                    <div class="glass-panel">
+                        <div class="panel-header">
+                            <h2><i class="fa-solid fa-gauge-high"></i> P50 / P95 Latency SLA Benchmarking</h2>
+                        </div>
+
+                        <div class="overall-sla-card">
+                            <span>OVERALL SLA STATUS</span>
+                            <div id="overall-sla-badge" class="sla-badge pass">READY</div>
+                        </div>
+
+                        <div class="latency-grid">
+                            <!-- Stage 1: ASR -->
+                            <div class="latency-card">
+                                <div class="stage-name">ASR Streaming</div>
+                                <div class="sla-target">Target: &lt; 800ms</div>
+                                <div class="metric-row">
+                                    <span>P50: <strong id="asr-p50">0ms</strong></span>
+                                    <span>P95: <strong id="asr-p95" class="highlight-blue">0ms</strong></span>
+                                </div>
+                                <div id="asr-badge" class="badge-mini pass">PASS</div>
+                            </div>
+
+                            <!-- Stage 2: Signal Extraction -->
+                            <div class="latency-card">
+                                <div class="stage-name">Signal Extraction</div>
+                                <div class="sla-target">Target: &lt; 200ms</div>
+                                <div class="metric-row">
+                                    <span>P50: <strong id="sig-p50">0ms</strong></span>
+                                    <span>P95: <strong id="sig-p95" class="highlight-blue">0ms</strong></span>
+                                </div>
+                                <div id="sig-badge" class="badge-mini pass">PASS</div>
+                            </div>
+
+                            <!-- Stage 3: Nudge Generation -->
+                            <div class="latency-card">
+                                <div class="stage-name">Nudge Engine</div>
+                                <div class="sla-target">Target: &lt; 100ms</div>
+                                <div class="metric-row">
+                                    <span>P50: <strong id="nudge-p50">0ms</strong></span>
+                                    <span>P95: <strong id="nudge-p95" class="highlight-blue">0ms</strong></span>
+                                </div>
+                                <div id="nudge-badge" class="badge-mini pass">PASS</div>
+                            </div>
+
+                            <!-- Stage 4: End-to-End -->
+                            <div class="latency-card">
+                                <div class="stage-name">End-to-End Pipeline</div>
+                                <div class="sla-target">Target: &lt; 1500ms</div>
+                                <div class="metric-row">
+                                    <span>P50: <strong id="e2e-p50">0ms</strong></span>
+                                    <span>P95: <strong id="e2e-p95" class="highlight-green">0ms</strong></span>
+                                </div>
+                                <div id="e2e-badge" class="badge-mini pass">PASS</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- JavaScript Bundle -->
+    <script src="/static/app.js"></script>
+</body>
+</html>
